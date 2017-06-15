@@ -42,7 +42,6 @@ namespace NETCore.MailKit.Web
             //Add MailKit
             services.AddMailKit(optionBuilder =>
             {
-
                 optionBuilder.UseMailKit(new MailKitOptions()
                 {
                     //get options from sercets.json
