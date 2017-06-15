@@ -35,7 +35,7 @@ namespace NETCore.MailKit
         private SmtpClient InitSmtpClient()
         {
             var client = new SmtpClient();
-            if (Options.SSL)
+            if (!Options.SSL)
             {
                 client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
             }
