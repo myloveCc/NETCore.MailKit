@@ -35,7 +35,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## Use EmailService like 
 
-```
+```csharp
 public class HomeController : Controller
 {
     private readonly IEmailService _EmailService;
