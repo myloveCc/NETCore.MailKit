@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\Internal\" />
+  </ItemGroup>
+
 </Project>
