@@ -3,7 +3,9 @@ MailKit extension for asp.net core
 
 # Install with nuget
 
+```
 Install-Package NETCore.MailKit
+```
 
 # How to use
 
