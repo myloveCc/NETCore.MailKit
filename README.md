@@ -9,7 +9,7 @@ Install-Package NETCore.MailKit
 
 ## Add MailKit in startup like 
 
-```
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     // Add framework services.
