@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 
 namespace NETCore.MailKit.Web
 {
@@ -19,6 +21,13 @@ namespace NETCore.MailKit.Web
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
+            //add sercets.json https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
             Configuration = builder.Build();
         }
 
@@ -29,6 +38,22 @@ namespace NETCore.MailKit.Web
         {
             // Add framework services.
             services.AddMvc();
+
+            //Add MailKit
+            services.AddMailKit(optionBuilder =>
+            {
+
+                optionBuilder.UseMailKit(new MailKitOptions()
+                {
+                    //get options from sercets.json
+                    Server = Configuration["Server"],
+                    Port = Convert.ToInt32(Configuration["Port"]),
+                    SenderName = Configuration["SenderName"],
+                    SenderEmail = Configuration["SenderEmail"],
+                    Account = Configuration["Account"],
+                    Passord = Configuration["Passord"]
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
