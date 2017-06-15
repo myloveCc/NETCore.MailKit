@@ -1,5 +1,5 @@
 # NETCore.MailKit
-MailKit extension for asp.net core
+[MailKit](https://github.com/jstedfast/MailKit) extension for asp.net core
 
 # Install with nuget
 
