@@ -9,11 +9,11 @@ namespace NETCore.MailKit
 {
     public class MailKitProvider : IMailKitProvider
     {
-        public readonly MailKitOptions _MailKitOptions;
+        public MailKitOptions Options { get; private set; }
 
         public MailKitProvider(MailKitOptions mailKitOptions)
         {
-            _MailKitOptions = mailKitOptions;
+            Options = mailKitOptions;
         }
 
         public SmtpClient Client
@@ -23,7 +23,6 @@ namespace NETCore.MailKit
                 return lazySmtpClient().Value;
             }
         }
-
 
         private Lazy<SmtpClient> lazySmtpClient()
         {
@@ -36,14 +35,20 @@ namespace NETCore.MailKit
         private SmtpClient InitSmtpClient()
         {
             var client = new SmtpClient();
-            if (_MailKitOptions.SSL)
+            if (Options.SSL)
             {
-                client.Connect(_MailKitOptions.Server, _MailKitOptions.Port, SecureSocketOptions.None);
+                client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
             }
             else
             {
-                client.Connect(_MailKitOptions.Server, _MailKitOptions.Port, SecureSocketOptions.SslOnConnect);
+                client.Connect(Options.Server, Options.Port, SecureSocketOptions.SslOnConnect);
             }
+
+            // Note: since we don't have an OAuth2 token, disable
+            // the XOAUTH2 authentication mechanism.
+            client.AuthenticationMechanisms.Remove("XOAUTH2");
+            // user login smtp server
+            client.Authenticate(Options.Account, Options.Passord);
 
             return client;
         }
