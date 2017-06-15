@@ -23,7 +23,10 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public void Send(string mailTo, string subject, string message, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            using (var client = _MailKitProvider.Client)
+            {
+
+            }
         }
 
 
@@ -37,7 +40,10 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public void Send(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            using (var client = _MailKitProvider.Client)
+            {
+
+            }
         }
 
         /// <summary>
@@ -51,7 +57,10 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            using (var client = _MailKitProvider.Client)
+            {
+
+            }
         }
 
         /// <summary>
@@ -66,7 +75,10 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            using (var client = _MailKitProvider.Client)
+            {
+
+            }
         }
 
 
@@ -79,7 +91,13 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public Task SendAsync(string mailTo, string subject, string message, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                using (var client = _MailKitProvider.Client)
+                {
+
+                }
+            });
         }
 
         /// <summary>
@@ -93,7 +111,13 @@ namespace NETCore.MailKit.Core
 
         public Task SendAsync(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                using (var client = _MailKitProvider.Client)
+                {
+
+                }
+            });
         }
 
         /// <summary>
@@ -107,7 +131,13 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                using (var client = _MailKitProvider.Client)
+                {
+
+                }
+            });
         }
 
         /// <summary>
@@ -122,7 +152,13 @@ namespace NETCore.MailKit.Core
         /// <param name="isHtml">is set message as html</param>
         public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                using (var client = _MailKitProvider.Client)
+                {
+
+                }
+            });
         }
     }
 }
