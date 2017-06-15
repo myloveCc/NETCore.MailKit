@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.1.0</Version>
+    <Authors>Lvcc</Authors>
+    <Company />
+    <Description>MailKit extension for asp.net core. Easy send email in asp.net core project.</Description>
+    <Copyright>Copyright 2017 (c) Lvcc. All rights reserved</Copyright>
+    <PackageProjectUrl>https://github.com/myloveCc/NETCore.MailKit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/myloveCc/NETCore.MailKit</RepositoryUrl>
+    <PackageTags>MailKit ASP.NETCore</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
