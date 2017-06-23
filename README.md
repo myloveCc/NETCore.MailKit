@@ -29,11 +29,7 @@ public void ConfigureServices(IServiceCollection services)
             SenderName = Configuration["SenderName"],
             SenderEmail = Configuration["SenderEmail"],
             Account = Configuration["Account"],
-<<<<<<< HEAD
             Password = Configuration["Password"]
-=======
-            Password = Configuration["Passord"]
->>>>>>> a5160ca63855abbfa12b6740a19d869b77bf0fe6
         });
     });
 }
