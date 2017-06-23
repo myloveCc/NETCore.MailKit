@@ -48,7 +48,7 @@ namespace NETCore.MailKit
             // the XOAUTH2 authentication mechanism.
             client.AuthenticationMechanisms.Remove("XOAUTH2");
             // user login smtp server
-            client.Authenticate(Options.Account, Options.Passord);
+            client.Authenticate(Options.Account, Options.Password);
 
             return client;
         }

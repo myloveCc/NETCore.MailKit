@@ -21,7 +21,7 @@ namespace NETCore.MailKit.Tests
                 SenderName = "mail from user name",
                 SenderEmail = "mail from ",
                 Account = "your email",
-                Passord = "your password"
+                Password = "your password"
             });
 
             _EmailService = new EmailService(provider);

@@ -50,7 +50,7 @@ namespace NETCore.MailKit.Web
                     SenderName = Configuration["SenderName"],
                     SenderEmail = Configuration["SenderEmail"],
                     Account = Configuration["Account"],
-                    Passord = Configuration["Passord"]
+                    Password = Configuration["Passord"]
                 });
             });
         }
