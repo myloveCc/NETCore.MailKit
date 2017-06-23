@@ -39,7 +39,7 @@ namespace NETCore.MailKit.Infrastructure.Internal
         /// <summary>
         /// send user password
         /// </summary>
-        public string Passord { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// enable ssl 
