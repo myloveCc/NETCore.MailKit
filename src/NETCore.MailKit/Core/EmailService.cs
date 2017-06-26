@@ -209,7 +209,7 @@ namespace NETCore.MailKit.Core
             //set email body
             mimeMessage.Body = body;
 
-            using (var client = _MailKitProvider.Client)
+            using (var client = _MailKitProvider.SmtpClient)
             {
                 client.Send(mimeMessage);
             }
