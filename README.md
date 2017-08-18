@@ -4,7 +4,7 @@
 # Install with nuget
 
 ```
-Install-Package NETCore.MailKit
+Install-Package NETCore.MailKit -Version 2.0.0
 ```
 
 # How to use
