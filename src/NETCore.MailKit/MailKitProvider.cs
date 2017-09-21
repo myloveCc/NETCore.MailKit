@@ -40,13 +40,16 @@ namespace NETCore.MailKit
             var client = new SmtpClient();
 
             client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-            if (!Options.SSL)
+
+            
+            if (!Options.Security)
             {
                 client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
             }
             else
             {
-                client.Connect(Options.Server, Options.Port, SecureSocketOptions.SslOnConnect);
+                // fix issue #6
+                client.Connect(Options.Server, Options.Port, SecureSocketOptions.Auto);
             }
 
             // Note: since we don't have an OAuth2 token, disable
@@ -81,7 +84,7 @@ namespace NETCore.MailKit
             var client = new Pop3Client();
 
             client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-            client.Connect(Options.Server, Options.Port, Options.SSL);
+            client.Connect(Options.Server, Options.Port, Options.Security);
 
             // Note: since we don't have an OAuth2 token, disable
             // the XOAUTH2 authentication mechanism.
@@ -114,7 +117,7 @@ namespace NETCore.MailKit
         {
             var client = new ImapClient();
 
-            client.Connect(Options.Server, Options.Port, Options.SSL);
+            client.Connect(Options.Server, Options.Port, Options.Security);
 
             // Note: since we don't have an OAuth2 token, disable
             // the XOAUTH2 authentication mechanism.

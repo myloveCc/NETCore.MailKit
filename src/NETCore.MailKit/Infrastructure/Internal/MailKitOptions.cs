@@ -42,8 +42,8 @@ namespace NETCore.MailKit.Infrastructure.Internal
         public string Password { get; set; }
 
         /// <summary>
-        /// enable ssl 
+        /// enable security 
         /// </summary>
-        public bool SSL { get; set; } = false;
+        public bool Security { get; set; } = false;
     }
 }

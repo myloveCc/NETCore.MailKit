@@ -173,19 +173,19 @@ namespace NETCore.MailKit.Core
             //add mail to 
             foreach (var to in _to)
             {
-                mimeMessage.To.Add(new MailboxAddress("", to));
+                mimeMessage.To.Add(MailboxAddress.Parse(to));
             }
 
             //add mail cc
             foreach (var cc in _cc)
             {
-                mimeMessage.Cc.Add(new MailboxAddress("", cc));
+                mimeMessage.Cc.Add(MailboxAddress.Parse(cc));
             }
 
             //add mail bcc 
             foreach (var bcc in _bcc)
             {
-                mimeMessage.Bcc.Add(new MailboxAddress("", bcc));
+                mimeMessage.Bcc.Add(MailboxAddress.Parse(bcc));
             }
 
             //add subject

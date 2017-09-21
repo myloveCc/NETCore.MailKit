@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C024949-45A0-4CBE-A70E-32B93819396B}"
 EndProject
@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DA9FC7DA-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NETCore.MailKit", "src\NETCore.MailKit\NETCore.MailKit.csproj", "{96CC69A4-8F99-4AFD-9534-BE933C8798AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCore.MailKit.Web", "example\NETCore.MailKit.Web\NETCore.MailKit.Web.csproj", "{060CCE52-A73E-4384-AB4E-A1B546717AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NETCore.MailKit.Web", "example\NETCore.MailKit.Web\NETCore.MailKit.Web.csproj", "{060CCE52-A73E-4384-AB4E-A1B546717AEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCore.MailKit.Tests", "test\NETCore.MailKit.Tests\NETCore.MailKit.Tests.csproj", "{ADEE50A3-4ADF-470F-9F56-071B6351D196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NETCore.MailKit.Tests", "test\NETCore.MailKit.Tests\NETCore.MailKit.Tests.csproj", "{ADEE50A3-4ADF-470F-9F56-071B6351D196}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD99E202-83A7-4FD2-BDF9-60E984354951}"
 	ProjectSection(SolutionItems) = preProject
@@ -46,5 +46,8 @@ Global
 		{96CC69A4-8F99-4AFD-9534-BE933C8798AC} = {7C024949-45A0-4CBE-A70E-32B93819396B}
 		{060CCE52-A73E-4384-AB4E-A1B546717AEB} = {716AF6BD-9EC2-4489-B4B3-5E6FE59C6A06}
 		{ADEE50A3-4ADF-470F-9F56-071B6351D196} = {DA9FC7DA-E56B-4A2E-BC27-89FA74919D08}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42DE4017-49C0-4EFF-A5FE-9328C0AB7F7D}
 	EndGlobalSection
 EndGlobal
