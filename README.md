@@ -5,7 +5,7 @@
 [![license](https://img.shields.io/github/license/myloveCc/NETCore.MailKit.svg)](https://github.com/myloveCc/NETCore.MailKit/blob/master/lICENSE)
 
 
-[MailKit](https://github.com/jstedfast/MailKit) extension for asp.net core
+MailKit extension for asp.net core
 
 # Install with nuget
 
