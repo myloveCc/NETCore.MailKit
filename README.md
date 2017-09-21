@@ -2,7 +2,7 @@
 [![NuGet](https://img.shields.io/nuget/v/NETCore.MailKit.svg)](https://nuget.org/packages/NETCore.MailKit)
 [![NETCore CLR](https://img.shields.io/badge/.NETCore%20Clr-2.0-brightgreen.svg)](https://www.microsoft.com/net/core)
 [![MailKit](https://img.shields.io/badge/MailKit-1.18.1.1-orange.svg)](https://github.com/jstedfast/MailKit)
-[![license](https://img.shields.io/github/license/myloveCc/NETCore.MailKit.svg)](https://github.com/myloveCc/NETCore.MailKit/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/myloveCc/NETCore.MailKit.svg)](https://github.com/myloveCc/NETCore.MailKit/blob/master/lICENSE)
 
 
 [MailKit](https://github.com/jstedfast/MailKit) extension for asp.net core
