@@ -4,7 +4,12 @@
 # Install with nuget
 
 ```
-Install-Package NETCore.MailKit -Version 2.0.0
+Install-Package NETCore.MailKit -Version 2.0.1
+```
+
+# Install with .NET CLI
+```
+dotnet add package NETCore.MailKit --version 2.0.1
 ```
 
 # How to use
@@ -29,8 +34,10 @@ public void ConfigureServices(IServiceCollection services)
             SenderName = Configuration["SenderName"],
             SenderEmail = Configuration["SenderEmail"],
             Account = Configuration["Account"],
-            Password = Configuration["Password"]
-        });
+            Password = Configuration["Password"],
+            // enable ssl or tls
+            Security = ture
+        });
     });
 }
 
