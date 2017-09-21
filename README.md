@@ -42,7 +42,7 @@ public void ConfigureServices(IServiceCollection services)
             Account = Configuration["Account"],
             Password = Configuration["Password"],
             // enable ssl or tls
-            Security = ture
+            Security = true
         });
     });
 }
