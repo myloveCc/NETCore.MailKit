@@ -10,12 +10,12 @@ MailKit extension for asp.net core
 # Install with nuget
 
 ```
-Install-Package NETCore.MailKit -Version 2.0.1
+Install-Package NETCore.MailKit -Version 2.0.2
 ```
 
 # Install with .NET CLI
 ```
-dotnet add package NETCore.MailKit --version 2.0.1
+dotnet add package NETCore.MailKit --version 2.0.2
 ```
 
 # How to use
@@ -39,6 +39,8 @@ public void ConfigureServices(IServiceCollection services)
             Port = Convert.ToInt32(Configuration["Port"]),
             SenderName = Configuration["SenderName"],
             SenderEmail = Configuration["SenderEmail"],
+			
+			// can be optional with no authentication 
             Account = Configuration["Account"],
             Password = Configuration["Password"],
             // enable ssl or tls
