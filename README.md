@@ -40,7 +40,7 @@ public void ConfigureServices(IServiceCollection services)
             SenderName = Configuration["SenderName"],
             SenderEmail = Configuration["SenderEmail"],
 			
-			// can be optional with no authentication 
+            // can be optional with no authentication 
             Account = Configuration["Account"],
             Password = Configuration["Password"],
             // enable ssl or tls
