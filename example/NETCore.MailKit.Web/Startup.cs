@@ -49,6 +49,8 @@ namespace NETCore.MailKit.Web
                     Port = Convert.ToInt32(Configuration["Port"]),
                     SenderName = Configuration["SenderName"],
                     SenderEmail = Configuration["SenderEmail"],
+
+                    //can be optional with no authentication 
                     Account = Configuration["Account"],
                     Password = Configuration["Password"]
                 });

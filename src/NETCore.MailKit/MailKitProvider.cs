@@ -9,7 +9,7 @@ using MailKit.Net.Imap;
 
 namespace NETCore.MailKit
 {
-    public class MailKitProvider : IMailKitProvider
+    public class MailKitProvider:IMailKitProvider
     {
         public MailKitOptions Options { get; private set; }
 
@@ -41,7 +41,7 @@ namespace NETCore.MailKit
 
             client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-            
+
             if (!Options.Security)
             {
                 client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
@@ -55,8 +55,12 @@ namespace NETCore.MailKit
             // Note: since we don't have an OAuth2 token, disable
             // the XOAUTH2 authentication mechanism.
             client.AuthenticationMechanisms.Remove("XOAUTH2");
-            // user login smtp server
-            client.Authenticate(Options.Account, Options.Password);
+
+            // user login smtp server (fix issue #9)
+            if (!string.IsNullOrEmpty(Options.Account) && !string.IsNullOrEmpty(Options.Password))
+            {
+                client.Authenticate(Options.Account, Options.Password);
+            }
 
             return client;
         }
