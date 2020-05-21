@@ -1,8 +1,7 @@
 using MimeKit;
 using MimeKit.Text;
+using NETCore.MailKit.Infrastructure.Internal;
 using NETCore.MailKit.Shared;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +24,10 @@ namespace NETCore.MailKit.Core
         /// <param name="subject">subject</param>
         /// <param name="message">email message</param>
         /// <param name="isHtml">is set message as html</param>
-        public void Send(string mailTo, string subject, string message, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public void Send(string mailTo, string subject, string message, bool isHtml = false, SenderInfo sender = null)
         {
-            SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml);
+            SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml, sender);
         }
 
         /// <summary>
@@ -38,9 +38,10 @@ namespace NETCore.MailKit.Core
         /// <param name="message">email message</param>
         /// <param name="encoding">email message encoding</param>
         /// <param name="isHtml">is set message as html</param>
-        public void Send(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public void Send(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
         {
-            SendEmail(mailTo, null, null, subject, message, encoding, isHtml);
+            SendEmail(mailTo, null, null, subject, message, encoding, isHtml, sender);
         }
 
         /// <summary>
@@ -52,9 +53,10 @@ namespace NETCore.MailKit.Core
         /// <param name="subject">subject</param>
         /// <param name="message">email message</param>
         /// <param name="isHtml">is set message as html</param>
-        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false, SenderInfo sender = null)
         {
-            SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml);
+            SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml, sender);
         }
 
         /// <summary>
@@ -67,9 +69,10 @@ namespace NETCore.MailKit.Core
         /// <param name="message">email message</param>
         /// <param name="encoding">email message encoding</param>
         /// <param name="isHtml">is set message as html</param>
-        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
         {
-            SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml);
+            SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml, sender);
         }
 
 
@@ -80,11 +83,12 @@ namespace NETCore.MailKit.Core
         /// <param name="subject">subject</param>
         /// <param name="message">email message</param>
         /// <param name="isHtml">is set message as html</param>
-        public Task SendAsync(string mailTo, string subject, string message, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public Task SendAsync(string mailTo, string subject, string message, bool isHtml = false, SenderInfo sender = null)
         {
             return Task.Factory.StartNew(() =>
             {
-                SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml);
+                SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml, sender);
             });
         }
 
@@ -96,12 +100,12 @@ namespace NETCore.MailKit.Core
         /// <param name="message">email message</param>
         /// <param name="encoding">email message encoding</param>
         /// <param name="isHtml">is set message as html</param>
-
-        public Task SendAsync(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public Task SendAsync(string mailTo, string subject, string message, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
         {
             return Task.Factory.StartNew(() =>
             {
-                SendEmail(mailTo, null, null, subject, message, encoding, isHtml);
+                SendEmail(mailTo, null, null, subject, message, encoding, isHtml, sender);
             });
         }
 
@@ -114,11 +118,12 @@ namespace NETCore.MailKit.Core
         /// <param name="subject">subject</param>
         /// <param name="message">email message</param>
         /// <param name="isHtml">is set message as html</param>
-        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, bool isHtml = false, SenderInfo sender = null)
         {
             return Task.Factory.StartNew(() =>
             {
-                SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml);
+                SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml, sender);
             });
         }
 
@@ -132,11 +137,12 @@ namespace NETCore.MailKit.Core
         /// <param name="message">email message</param>
         /// <param name="encoding">email message encoding</param>
         /// <param name="isHtml">is set message as html</param>
-        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false)
+        /// <param name="sender">from</param>
+        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
         {
             return Task.Factory.StartNew(() =>
             {
-                SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml);
+                SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml, sender);
             });
         }
 
@@ -150,7 +156,8 @@ namespace NETCore.MailKit.Core
         /// <param name="message"></param>
         /// <param name="encoding"></param>
         /// <param name="isHtml"></param>
-        private void SendEmail(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml)
+        /// <param name="sender">from</param>
+        private void SendEmail(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml, SenderInfo sender = null)
         {
             var _to = new string[0];
             var _cc = new string[0];
@@ -168,7 +175,14 @@ namespace NETCore.MailKit.Core
             var mimeMessage = new MimeMessage();
 
             //add mail from
-            mimeMessage.From.Add(new MailboxAddress(_MailKitProvider.Options.SenderName, _MailKitProvider.Options.SenderEmail));
+            if (!string.IsNullOrEmpty(sender?.SenderEmail) && !string.IsNullOrEmpty(sender?.SenderName))
+            {
+                mimeMessage.From.Add(new MailboxAddress(sender.SenderName, sender.SenderEmail));
+            }
+            else
+            {
+                mimeMessage.From.Add(new MailboxAddress(_MailKitProvider.Options.SenderName, _MailKitProvider.Options.SenderEmail));
+            }
 
             //add mail to 
             foreach (var to in _to)
@@ -196,7 +210,6 @@ namespace NETCore.MailKit.Core
 
             if (isHtml)
             {
-
                 body = new TextPart(TextFormat.Html);
             }
             else
