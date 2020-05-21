@@ -14,6 +14,10 @@
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.14.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.14.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\NETCore.MailKit\NETCore.MailKit.csproj" />
   </ItemGroup>
 
