@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
     <Authors>Lvcc</Authors>
     <Company />
     <Description>MailKit extension for asp.net core. Easy send email in asp.net core project.</Description>
@@ -19,19 +19,22 @@
     <RepositoryUrl>https://github.com/myloveCc/NETCore.MailKit</RepositoryUrl>
     <PackageTags>MailKit ASP.NETCore</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.0.2.0</AssemblyVersion>
-    <FileVersion>2.0.2.0</FileVersion>
-    <PackageReleaseNotes>1:Update Mailkit to version 2.0.1.
-2:Fix Issues #9 about "no authentication error"</PackageReleaseNotes>
+    <AssemblyVersion>2.0.3.0</AssemblyVersion>
+    <FileVersion>2.0.3.0</FileVersion>
+    <PackageReleaseNotes>1: Update Mailkit to version 2.6.0.
+2: Add optional sender info for SendAsync method #14
+3: Update to .NET CORE 3.1</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <Compile Remove="Core\Internal\**" />
+    <EmbeddedResource Remove="Core\Internal\**" />
+    <None Remove="Core\Internal\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Internal\" />
+    <PackageReference Include="MailKit" Version="2.6.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
   </ItemGroup>
 
 </Project>
