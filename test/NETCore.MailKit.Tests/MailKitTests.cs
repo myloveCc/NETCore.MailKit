@@ -1,8 +1,7 @@
+using NETCore.MailKit.Core;
+using NETCore.MailKit.Infrastructure.Internal;
 using System;
 using Xunit;
-using NETCore.MailKit.Core;
-using System.Linq;
-using NETCore.MailKit.Infrastructure.Internal;
 
 namespace NETCore.MailKit.Tests
 {
@@ -57,6 +56,18 @@ namespace NETCore.MailKit.Tests
         public void Send_Email_Hmtl_Test()
         {
             _EmailService.Send(_MailToOne, "Test MailKit Extensions Html Body", "<html><h1>Hello MailKit<h1><br/><p style='font-size:18px;color:red'>Font size is 18px ,color is red</p></html>", true);
+        }
+
+        [Fact(DisplayName = "MailAttachmentsTest")]
+        public void Send_Email_Attachments_Test()
+        {
+            string[] listAttch = new string[] 
+            { 
+                "", 
+                "" 
+            };
+
+            _EmailService.Send(_MailToOne, "Test MailKit Extensions with Attachments", "Hello MailKit", listAttch);
         }
     }
 }
