@@ -2,6 +2,7 @@ using MimeKit;
 using MimeKit.Text;
 using NETCore.MailKit.Infrastructure.Internal;
 using NETCore.MailKit.Shared;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +76,25 @@ namespace NETCore.MailKit.Core
             SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml, sender);
         }
 
+        public void Send(string mailTo, string subject, string message, string[] attachments, bool isHtml = false, SenderInfo sender = null)
+        {
+            SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml, sender, attachments);
+        }
+
+        public void Send(string mailTo, string subject, string message, string[] attachments, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
+        {
+            SendEmail(mailTo, null, null, subject, message, encoding, isHtml, sender, attachments);
+        }
+
+        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, string[] attachments, bool isHtml = false, SenderInfo sender = null)
+        {
+            SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml, sender, attachments);
+        }
+
+        public void Send(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, string[] attachments, bool isHtml = false, SenderInfo sender = null)
+        {
+            SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml, sender, attachments);
+        }
 
         /// <summary>
         /// send email with UTF-8 async
@@ -146,6 +166,38 @@ namespace NETCore.MailKit.Core
             });
         }
 
+        public Task SendAsync(string mailTo, string subject, string message, string[] attachments, bool isHtml = false, SenderInfo sender = null)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                SendEmail(mailTo, null, null, subject, message, Encoding.UTF8, isHtml, sender, attachments);
+            });
+        }
+
+        public Task SendAsync(string mailTo, string subject, string message, string[] attachments, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                SendEmail(mailTo, null, null, subject, message, encoding, isHtml, sender, attachments);
+            });
+        }
+
+        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, string[] attachments, bool isHtml = false, SenderInfo sender = null)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                SendEmail(mailTo, mailCc, mailBcc, subject, message, Encoding.UTF8, isHtml, sender, attachments);
+            });
+        }
+
+        public Task SendAsync(string mailTo, string mailCc, string mailBcc, string subject, string message, string[] attachments, Encoding encoding, bool isHtml = false, SenderInfo sender = null)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                SendEmail(mailTo, mailCc, mailBcc, subject, message, encoding, isHtml, sender, attachments);
+            });
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -157,7 +209,7 @@ namespace NETCore.MailKit.Core
         /// <param name="encoding"></param>
         /// <param name="isHtml"></param>
         /// <param name="sender">from</param>
-        private void SendEmail(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml, SenderInfo sender = null)
+        private void SendEmail(string mailTo, string mailCc, string mailBcc, string subject, string message, Encoding encoding, bool isHtml, SenderInfo sender = null, string[] attachments = default)
         {
             var _to = new string[0];
             var _cc = new string[0];
@@ -219,8 +271,29 @@ namespace NETCore.MailKit.Core
             //set email encoding
             body.SetText(encoding, message);
 
+            //add multipart
+            Multipart multipartBody = new Multipart("mixed")
+            {
+                body
+            };
+
+            // add attachments
+            if (attachments != null)
+                foreach (var attach in attachments)
+                {
+                    var mimeType = MimeTypes.GetMimeType(attach).Split('/');
+                    multipartBody.Add(new MimePart(mimeType[0], mimeType[1])
+                    {
+                        IsAttachment = true,
+                        Content = new MimeContent(File.OpenRead(attach), ContentEncoding.Default),
+                        ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                        ContentTransferEncoding = ContentEncoding.Base64,
+                        FileName = Path.GetFileName(attach),
+                    });
+                }
+
             //set email body
-            mimeMessage.Body = body;
+            mimeMessage.Body = multipartBody;
 
             using (var client = _MailKitProvider.SmtpClient)
             {
