@@ -12,12 +12,12 @@ MailKit extension for asp.net core
 # Install with nuget
 
 ```
-Install-Package NETCore.MailKit -Version 2.0.3
+Install-Package NETCore.MailKit -Version 2.1.0
 ```
 
 # Install with .NET CLI
 ```
-dotnet add package NETCore.MailKit --version 2.0.3
+dotnet add package NETCore.MailKit --version 2.1.0
 ```
 
 # How to use

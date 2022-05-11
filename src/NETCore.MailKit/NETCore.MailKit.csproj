@@ -10,7 +10,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.0.3</Version>
+    <Version>2.1.0</Version>
     <Authors>Lvcc</Authors>
     <Company />
     <Description>MailKit extension for asp.net core. Easy send email in asp.net core project.</Description>
@@ -19,11 +19,12 @@
     <RepositoryUrl>https://github.com/myloveCc/NETCore.MailKit</RepositoryUrl>
     <PackageTags>MailKit ASP.NETCore</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.0.3.0</AssemblyVersion>
-    <FileVersion>2.0.3.0</FileVersion>
-    <PackageReleaseNotes>1: Update Mailkit to version 2.6.0.
-2: Add optional sender info for SendAsync method #14
-3: Update to .NET CORE 3.1</PackageReleaseNotes>
+    <AssemblyVersion>2.1.0</AssemblyVersion>
+    <FileVersion>2.1.0</FileVersion>
+    <PackageReleaseNotes>
+		1: Update Mailkit to version 3.2.0.
+		2: Adds support for sending emails with attachments. #19
+		3: Update example sdk to .NET 6</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.6.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
