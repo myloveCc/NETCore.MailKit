@@ -2,6 +2,7 @@ using MimeKit;
 using MimeKit.Text;
 using NETCore.MailKit.Infrastructure.Internal;
 using NETCore.MailKit.Shared;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -297,7 +298,18 @@ namespace NETCore.MailKit.Core
 
             using (var client = _MailKitProvider.SmtpClient)
             {
-                client.Send(mimeMessage);
+                try
+                {
+                    client?.Send(mimeMessage);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    client?.Disconnect(true);
+                }
             }
         }
     }
