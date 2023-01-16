@@ -37,32 +37,42 @@ namespace NETCore.MailKit
 
         private SmtpClient InitSmtpClient()
         {
-            var client = new SmtpClient();
-
-            client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-
-
-            if (!Options.Security)
+            try
             {
-                client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
+                var client = new SmtpClient();
+
+                client.CheckCertificateRevocation = false;
+                //设置timeout 避免长时间的等待
+                client.Timeout = 5000;
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+
+                if (!Options.Security)
+                {
+                    client.Connect(Options.Server, Options.Port, SecureSocketOptions.None);
+                }
+                else
+                {
+                    // fix issue #6
+                    client.Connect(Options.Server, Options.Port, SecureSocketOptions.Auto);
+                }
+
+                // Note: since we don't have an OAuth2 token, disable
+                // the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                // user login smtp server (fix issue #9)
+                if (!string.IsNullOrEmpty(Options.Account) && !string.IsNullOrEmpty(Options.Password))
+                {
+                    client.Authenticate(Options.Account, Options.Password);
+                }
+
+                return client;
             }
-            else
+            catch(Exception e)
             {
-                // fix issue #6
-                client.Connect(Options.Server, Options.Port, SecureSocketOptions.Auto);
+                throw e;
             }
-
-            // Note: since we don't have an OAuth2 token, disable
-            // the XOAUTH2 authentication mechanism.
-            client.AuthenticationMechanisms.Remove("XOAUTH2");
-
-            // user login smtp server (fix issue #9)
-            if (!string.IsNullOrEmpty(Options.Account) && !string.IsNullOrEmpty(Options.Password))
-            {
-                client.Authenticate(Options.Account, Options.Password);
-            }
-
-            return client;
         }
 
         #endregion

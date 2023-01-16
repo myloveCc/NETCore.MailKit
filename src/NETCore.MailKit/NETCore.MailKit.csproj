@@ -10,21 +10,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.1.0</Version>
-    <Authors>Lvcc</Authors>
+    <Version>2.1.2</Version>
+    <Authors>jason</Authors>
     <Company />
     <Description>MailKit extension for asp.net core. Easy send email in asp.net core project.</Description>
-    <Copyright>Copyright 2017 (c) Lvcc. All rights reserved</Copyright>
-    <PackageProjectUrl>https://github.com/myloveCc/NETCore.MailKit</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/myloveCc/NETCore.MailKit</RepositoryUrl>
+    <Copyright>Copyright 2023 (c) Flame. All rights reserved</Copyright>
+    <PackageProjectUrl>https://github.com/mswinner/NETCore.MailKit2</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mswinner/NETCore.MailKit2</RepositoryUrl>
     <PackageTags>MailKit ASP.NETCore</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.1.0</AssemblyVersion>
-    <FileVersion>2.1.0</FileVersion>
+    <AssemblyVersion>2.1.1</AssemblyVersion>
+    <FileVersion>2.1.1</FileVersion>
     <PackageReleaseNotes>
 		1: Update Mailkit to version 3.2.0.
 		2: Adds support for sending emails with attachments. #19
 		3: Update example sdk to .NET 6</PackageReleaseNotes>
+    <PackageId>Flame.MailKit</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
