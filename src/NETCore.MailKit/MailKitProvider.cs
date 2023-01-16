@@ -41,6 +41,7 @@ namespace NETCore.MailKit
             {
                 var client = new SmtpClient();
 
+                client.CheckCertificateRevocation = false;
                 //设置timeout 避免长时间的等待
                 client.Timeout = 5000;
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
