@@ -224,80 +224,81 @@ namespace NETCore.MailKit.Core
             Check.Argument.IsNotEmpty(_to, nameof(mailTo));
             Check.Argument.IsNotEmpty(message, nameof(message));
 
-            var mimeMessage = new MimeMessage();
-
-            //add mail from
-            if (!string.IsNullOrEmpty(sender?.SenderEmail) && !string.IsNullOrEmpty(sender?.SenderName))
+            using (var mimeMessage = new MimeMessage())
             {
-                mimeMessage.From.Add(new MailboxAddress(sender.SenderName, sender.SenderEmail));
-            }
-            else
-            {
-                mimeMessage.From.Add(new MailboxAddress(_MailKitProvider.Options.SenderName, _MailKitProvider.Options.SenderEmail));
-            }
+                //add mail from
+                if (!string.IsNullOrEmpty(sender?.SenderEmail) && !string.IsNullOrEmpty(sender?.SenderName))
+                {
+                    mimeMessage.From.Add(new MailboxAddress(sender.SenderName, sender.SenderEmail));
+                }
+                else
+                {
+                    mimeMessage.From.Add(new MailboxAddress(_MailKitProvider.Options.SenderName, _MailKitProvider.Options.SenderEmail));
+                }
 
-            //add mail to 
-            foreach (var to in _to)
-            {
-                mimeMessage.To.Add(MailboxAddress.Parse(to));
-            }
+                //add mail to 
+                foreach (var to in _to)
+                {
+                    mimeMessage.To.Add(MailboxAddress.Parse(to));
+                }
 
-            //add mail cc
-            foreach (var cc in _cc)
-            {
-                mimeMessage.Cc.Add(MailboxAddress.Parse(cc));
-            }
+                //add mail cc
+                foreach (var cc in _cc)
+                {
+                    mimeMessage.Cc.Add(MailboxAddress.Parse(cc));
+                }
 
-            //add mail bcc 
-            foreach (var bcc in _bcc)
-            {
-                mimeMessage.Bcc.Add(MailboxAddress.Parse(bcc));
-            }
+                //add mail bcc 
+                foreach (var bcc in _bcc)
+                {
+                    mimeMessage.Bcc.Add(MailboxAddress.Parse(bcc));
+                }
 
-            //add subject
-            mimeMessage.Subject = subject;
+                //add subject
+                mimeMessage.Subject = subject;
 
-            //add email body
-            TextPart body = null;
+                //add email body
+                TextPart body = null;
 
-            if (isHtml)
-            {
-                body = new TextPart(TextFormat.Html);
-            }
-            else
-            {
-                body = new TextPart(TextFormat.Text);
-            }
-            //set email encoding
-            body.SetText(encoding, message);
+                if (isHtml)
+                {
+                    body = new TextPart(TextFormat.Html);
+                }
+                else
+                {
+                    body = new TextPart(TextFormat.Text);
+                }
+                //set email encoding
+                body.SetText(encoding, message);
 
-            //add multipart
-            Multipart multipartBody = new Multipart("mixed")
+                //add multipart
+                Multipart multipartBody = new Multipart("mixed")
             {
                 body
             };
 
-            // add attachments
-            if (attachments != null)
-                foreach (var attach in attachments)
-                {
-                    var mimeType = MimeTypes.GetMimeType(attach).Split('/');
-                    multipartBody.Add(new MimePart(mimeType[0], mimeType[1])
+                // add attachments
+                if (attachments != null)
+                    foreach (var attach in attachments)
                     {
-                        IsAttachment = true,
-                        Content = new MimeContent(File.OpenRead(attach), ContentEncoding.Default),
-                        ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                        ContentTransferEncoding = ContentEncoding.Base64,
-                        FileName = Path.GetFileName(attach),
-                    });
+                        var mimeType = MimeTypes.GetMimeType(attach).Split('/');
+                        multipartBody.Add(new MimePart(mimeType[0], mimeType[1])
+                        {
+                            IsAttachment = true,
+                            Content = new MimeContent(File.OpenRead(attach), ContentEncoding.Default),
+                            ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                            ContentTransferEncoding = ContentEncoding.Base64,
+                            FileName = Path.GetFileName(attach),
+                        });
+                    }
+
+                //set email body
+                mimeMessage.Body = multipartBody;
+
+                using (var client = _MailKitProvider.SmtpClient)
+                {
+                    client.Send(mimeMessage);
                 }
-
-            //set email body
-            mimeMessage.Body = multipartBody;
-
-            using (var client = _MailKitProvider.SmtpClient)
-            {
-                client.Send(mimeMessage);
             }
         }
     }
