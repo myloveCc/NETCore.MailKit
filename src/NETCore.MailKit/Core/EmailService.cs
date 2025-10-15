@@ -224,7 +224,7 @@ namespace NETCore.MailKit.Core
             Check.Argument.IsNotEmpty(_to, nameof(mailTo));
             Check.Argument.IsNotEmpty(message, nameof(message));
 
-            var mimeMessage = new MimeMessage();
+            using var mimeMessage = new MimeMessage();
 
             //add mail from
             if (!string.IsNullOrEmpty(sender?.SenderEmail) && !string.IsNullOrEmpty(sender?.SenderName))
@@ -285,7 +285,7 @@ namespace NETCore.MailKit.Core
                     multipartBody.Add(new MimePart(mimeType[0], mimeType[1])
                     {
                         IsAttachment = true,
-                        Content = new MimeContent(File.OpenRead(attach), ContentEncoding.Default),
+                        Content = new MimeContent(File.Open(attach, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete), ContentEncoding.Default),
                         ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                         ContentTransferEncoding = ContentEncoding.Base64,
                         FileName = Path.GetFileName(attach),
@@ -295,10 +295,8 @@ namespace NETCore.MailKit.Core
             //set email body
             mimeMessage.Body = multipartBody;
 
-            using (var client = _MailKitProvider.SmtpClient)
-            {
-                client.Send(mimeMessage);
-            }
+            using var client = _MailKitProvider.SmtpClient;
+            client.Send(mimeMessage);
         }
     }
 }
